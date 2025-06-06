@@ -1,9 +1,9 @@
 body {
-  cursor: url(/src/assets/cursor/yugicursor.png), default;
+  cursor: url(src/assets/cursor/yugicursor.png), default;
 }
 
 button, a, img:hover, button:hover {
-  cursor: url(/src/assets/cursor/yamiyugicursorGLOW.png), auto;
+  cursor: url(src/assets/cursor/yamiyugicursorGLOW.png), auto;
 }
 
 .bg-video {
@@ -101,10 +101,10 @@ button, a, img:hover, button:hover {
 .card-versus__container {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Centraliza o conteúdo interno (cartas em campo, botão) */
-  justify-content: center; /* Centraliza verticalmente o conteúdo interno */
-  flex-grow: 1; /* PERMITE que este item ocupe o espaço restante */
-  min-height: 250px; /* Um mínimo para garantir que ele tenha espaço suficiente */
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  min-height: 250px;
   height: 300px;
 }
 

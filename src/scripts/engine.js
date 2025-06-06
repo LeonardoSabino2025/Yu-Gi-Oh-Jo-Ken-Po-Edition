@@ -1,4 +1,3 @@
-// Objeto de estado global para gerenciar elementos e dados do jogo
 const state = {
   score: {
     playerScore: 0,
@@ -14,11 +13,11 @@ const state = {
     player: document.getElementById("player-field-card"),
     computer: document.getElementById("computer-field-card"),
   },
-  playerSides: { // Usado para referenciar os IDs dos containers das cartas
+  playerSides: {
     player1: "player-cards",
-    player1Box: document.querySelector("#player-cards"), // Referência direta ao elemento
+    player1Box: document.querySelector("#player-cards"),
     computer: "computer-cards",
-    computerBox: document.querySelector("#computer-cards"), // Referência direta ao elemento
+    computerBox: document.querySelector("#computer-cards"),
   },
   actions: {
     button: document.getElementById("next-duel"),
@@ -28,51 +27,45 @@ const state = {
   },
 };
 
-// Dados das cartas com suas propriedades e regras de Jo-Ken-Po
 const cardData = [
   {
     id: 0,
     name: "Blue Eyes White Dragon",
     type: "Paper",
-    img: "/src/assets/icons/dragon.png",
-    WinOf: [1], // Ganha de Dark Magician (Rock)
-    LoseOf: [2], // Perde para Exodia (Scissor)
+    img: "src/assets/icons/dragon.png",
+    WinOf: [1],
+    LoseOf: [2],
   },
   {
     id: 1,
     name: "Dark Magician",
     type: "Rock",
-    img: "/src/assets/icons/magician.png",
-    WinOf: [2], // Ganha de Exodia (Scissor)
-    LoseOf: [0], // Perde para Blue Eyes White Dragon (Paper)
+    img: "src/assets/icons/magician.png",
+    WinOf: [2],
+    LoseOf: [0],
   },
   {
     id: 2,
     name: "Exodia",
     type: "Scissor",
-    img: "/src/assets/icons/exodia.png",
-    WinOf: [0], // Ganha de Blue Eyes White Dragon (Paper)
-    LoseOf: [1], // Perde para Dark Magician (Rock)
+    img: "src/assets/icons/exodia.png",
+    WinOf: [0],
+    LoseOf: [1],
   },
 ];
 
-// --- Funções Principais do Jogo ---
-
-// Retorna um ID de carta aleatório baseado nos dados disponíveis
 function getRandomCardID() {
   const randomIndex = Math.floor(Math.random() * cardData.length);
   return cardData[randomIndex].id;
 }
 
-// Cria e configura um elemento de imagem de carta
 async function createCardImage(idCard, fieldSide) {
   const cardImage = document.createElement("img");
   cardImage.setAttribute("height", "100px");
-  cardImage.setAttribute("src", "/src/assets/icons/card-back.png"); // Imagem do verso da carta
-  cardImage.setAttribute("data-id", idCard); // Armazena o ID da carta nos dados do elemento
-  cardImage.classList.add("card"); // Adiciona classe CSS para estilos
+  cardImage.setAttribute("src", "src/assets/icons/card-back.png");
+  cardImage.setAttribute("data-id", idCard);
+  cardImage.classList.add("card");
 
-  // Adiciona listeners de evento apenas para cartas do jogador
   if (fieldSide === state.playerSides.player1) {
     cardImage.addEventListener("click", () => {
       setCardsField(cardImage.getAttribute("data-id"));
@@ -84,37 +77,31 @@ async function createCardImage(idCard, fieldSide) {
   return cardImage;
 }
 
-// Lógica principal do duelo após o jogador escolher uma carta
 async function setCardsField(cardId) {
-  await removeAllCardImages(); // Remove todas as cartas das mãos
-  hideCardDetails(); // Esconde os detalhes da carta selecionada
+  await removeAllCardImages();
+  hideCardDetails();
 
-  const computerCardId = getRandomCardID(); // Obtém uma carta aleatória para o computador
+  const computerCardId = getRandomCardID();
 
-  // Exibe as cartas no campo de batalha
   state.fieldCard.player.style.display = "block";
   state.fieldCard.computer.style.display = "block";
 
-  // Define as imagens das cartas no campo de batalha
   state.fieldCard.player.src = cardData[cardId].img;
   state.fieldCard.computer.src = cardData[computerCardId].img;
 
-  const duelResults = await checkDuelResults(Number(cardId), computerCardId); // Converte cardId para número
-  await updateScore(); // Atualiza o placar
-  await drawButton(duelResults); // Exibe o botão com o resultado do duelo
+  const duelResults = await checkDuelResults(Number(cardId), computerCardId);
+  await updateScore();
+  await drawButton(duelResults);
 }
 
-// Atualiza o texto do placar
 function updateScore() {
   state.score.scoreBox.innerText = `Win: ${state.score.playerScore} | Lose: ${state.score.computerScore}`;
 }
 
-// Checa o resultado do duelo com base nas cartas escolhidas
 async function checkDuelResults(playerCardID, computerCardId) {
-  let duelResults = "EMPATE"; // Valor padrão
+  let duelResults = "EMPATE";
 
   const playerCard = cardData[playerCardID];
-  // const computerCard = cardData[computerCardId]; // Não é diretamente usado, mas pode ser útil para debug
 
   if (playerCard.WinOf.includes(computerCardId)) {
     duelResults = "GANHOU!";
@@ -125,42 +112,35 @@ async function checkDuelResults(playerCardID, computerCardId) {
     await playAudio("lose");
     state.score.computerScore++;
   } else {
-    // Caso de empate
-    await playAudio("draw"); // Assumindo que você tenha um draw.wav
+    await playAudio("draw");
   }
 
   return duelResults;
 }
 
-// Remove todas as imagens de cartas das caixas de mão
 async function removeAllCardImages() {
   let player1Cards = state.playerSides.player1Box;
   let computerCards = state.playerSides.computerBox;
 
-  // Remove as imagens das cartas do jogador
   let imgElementsPlayer = player1Cards.querySelectorAll("img");
   imgElementsPlayer.forEach((img) => img.remove());
 
-  // Remove as imagens das cartas do computador
   let imgElementsComputer = computerCards.querySelectorAll("img");
   imgElementsComputer.forEach((img) => img.remove());
 }
 
-// Exibe a carta selecionada no avatar do lado esquerdo
 function drawSelectCard(id) {
   state.cardSprites.avatar.src = cardData[id].img;
   state.cardSprites.name.innerText = cardData[id].name;
   state.cardSprites.type.innerText = "Attribute : " + cardData[id].type;
 }
 
-// Esconde os detalhes da carta selecionada no avatar do lado esquerdo
 function hideCardDetails() {
   state.cardSprites.avatar.src = "";
   state.cardSprites.name.innerText = "Selecione";
   state.cardSprites.type.innerText = "uma carta";
 }
 
-// Desenha um número específico de cartas em um lado do campo
 async function drawCards(cardNumbers, fieldSide) {
   for (let i = 0; i < cardNumbers; i++) {
     const randomIdCard = getRandomCardID();
@@ -169,18 +149,15 @@ async function drawCards(cardNumbers, fieldSide) {
   }
 }
 
-// Exibe o botão de "Próximo Duelo" com o texto do resultado
 function drawButton(text) {
   state.actions.button.innerText = text;
   state.actions.button.style.display = "block";
 }
 
-// Reseta o duelo para um novo round
 async function resetDuel() {
   hideCardDetails();
   state.actions.button.style.display = "none";
 
-  // Esconde as cartas do campo de batalha
   state.fieldCard.player.style.display = "none";
   state.fieldCard.computer.style.display = "none";
 
@@ -188,17 +165,14 @@ async function resetDuel() {
   init();
 }
 
-// Toca o arquivo de áudio correspondente ao status do duelo
 async function playAudio(status) {
-  const audio = new Audio(`/src/assets/audios/${status}.wav`);
+  const audio = new Audio(`src/assets/audios/${status}.wav`);
   try {
     await audio.play(); 
   } catch (error) {
     console.error(`Erro ao tocar áudio ${status}.wav:`, error);
   }
 }
-
-// Inicializa o jogo
 
 function playBackgroundMusic() {
   const bgMusic = state.audios.backgroundMusic;
@@ -211,16 +185,13 @@ function playBackgroundMusic() {
 }
 
 function init() {
-  // Garante que as cartas do campo estejam escondidas no início ou reset
   state.fieldCard.player.style.display = "none";
   state.fieldCard.computer.style.display = "none";
 
-  drawCards(5, state.playerSides.player1); // Desenha 5 cartas para o jogador
-  drawCards(5, state.playerSides.computer); // Desenha 5 cartas para o computador
-  updateScore(); // Atualiza o placar inicial
-    playBackgroundMusic(); 
+  drawCards(5, state.playerSides.player1);
+  drawCards(5, state.playerSides.computer);
+  updateScore();
+  playBackgroundMusic(); 
 }
 
-
-// Inicia o jogo quando o script é carregado
 init();
