@@ -6,7 +6,7 @@ Bem-vindo ao reino dos duelos mais nostálgicos e desafiadores! Prepare-se para 
 
 Este é um jogo simples e divertido que reimagina o clássico "Pedra, Papel e Tesoura" com o carisma e a magia do universo de Yu-Gi-Oh! Escolha sua carta lendária (Blue-Eyes White Dragon, Dark Magician ou Exodia) e enfrente o computador em um duelo rápido e viciante. Quem será o Rei dos Jogos?
 
-![Gameplay Screenshot/GIF](link-para-sua-screenshot-ou-gif-aqui)
+![Screenshot](src/assets/rpg/preview.png)
 ## 🚀 Status do Projeto
 
 ![Status](https://img.shields.io/badge/status-Concluído%20%26%20Funcional-brightgreen)
@@ -78,7 +78,7 @@ Siga estas instruções para rodar o projeto localmente em seu computador:
 
 Este projeto foi desenvolvido por:
 
-* **Seu Nome/Pseudônimo** ([Leonardo Sabino](https://github.com/LeonardoSabino2025))
+* **Leonardo Sabino** ([Github](https://github.com/LeonardoSabino2025))
 
 Agradecimentos especiais a:
 * O instrutor que guiou o projeto (se aplicável, mencione o nome ou a plataforma/curso).
