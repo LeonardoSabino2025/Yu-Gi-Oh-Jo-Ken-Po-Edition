@@ -23,6 +23,10 @@ Este projeto foi desenvolvido utilizando as seguintes tecnologias front-end:
 * **`CSS3`**: Estilização e layout responsivo.
 * **`JavaScript (ES6+)`**: Lógica de jogo, interatividade e manipulação do DOM.
 
+## 🎮 Experimente on-line:
+
+([CLique aqui.](https://leonardosabino2025.github.io/Yu-Gi-Oh-Jo-Ken-Po-Edition/))
+
 ## 🎮 Como Jogar
 
 As regras são simples, mas a nostalgia é garantida:
@@ -74,7 +78,7 @@ Siga estas instruções para rodar o projeto localmente em seu computador:
 
 Este projeto foi desenvolvido por:
 
-* **Seu Nome/Pseudônimo** ([Link para seu GitHub/LinkedIn](link-para-seu-perfil))
+* **Seu Nome/Pseudônimo** ([Leonardo Sabino](https://github.com/LeonardoSabino2025))
 
 Agradecimentos especiais a:
 * O instrutor que guiou o projeto (se aplicável, mencione o nome ou a plataforma/curso).
