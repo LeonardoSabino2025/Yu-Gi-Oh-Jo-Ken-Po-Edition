@@ -25,7 +25,7 @@ Este projeto foi desenvolvido utilizando as seguintes tecnologias front-end:
 
 ## 🎮 Experimente on-line:
 
-([CLique aqui.](https://leonardosabino2025.github.io/Yu-Gi-Oh-Jo-Ken-Po-Edition/))
+([Clique aqui.](https://leonardosabino2025.github.io/Yu-Gi-Oh-Jo-Ken-Po-Edition/))
 
 ## 🎮 Como Jogar
 
